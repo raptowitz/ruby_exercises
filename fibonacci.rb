@@ -9,7 +9,17 @@ def fibs(num)
       sequence.push(sequence[n - 1] + sequence[n - 2])
     end
   end
-  puts sequence[0..num - 1]
+  sequence
 end
 
-fibs(8)
+# puts fibs(8)
+
+def fibs_rec(num)
+  if num < 2
+    num
+  else
+    fibs_rec(num - 1) + (num - 2)
+  end
+end
+
+puts fibs_rec(5)
