@@ -14,7 +14,7 @@ end
 
 # puts fibs(8)
 
-def fibs_rec(num)
+def fibs_rec_simple(num)
   if num < 2
     num
   else
@@ -22,4 +22,13 @@ def fibs_rec(num)
   end
 end
 
-puts fibs_rec(5)
+# puts fibs_rec_simple(5)
+
+def fibs_rec(num, seq = [0, 1])
+  return seq if num < 2
+
+  seq << seq[-1] + seq[-2]
+  fibs_rec(num - 1, seq)
+end
+
+puts fibs_rec(7)
