@@ -7,3 +7,4 @@ These exercises are from The Odin Project's Ruby curriculum.
 * [bubble sort](https://www.theodinproject.com/courses/ruby-programming/lessons/bubble-sort)
 ## Computer Science
 * [fibonacci](https://www.theodinproject.com/courses/ruby-programming/lessons/recursion)
+* [merge sort](https://www.theodinproject.com/courses/ruby-programming/lessons/recursion)
