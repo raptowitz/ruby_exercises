@@ -2,22 +2,25 @@
 
 require 'pry'
 
-def merge_sort(array, sorted_array = [])
+def merge_sort(array)
   if array.length < 2
     array
   else
-  # divide
-  b = array.slice(0, array.length / 2)
-  c = array.slice(array.length / 2, array.length)
-  binding.pry
+    # divide
+    b = array.slice(0, array.length / 2)
+    c = array.slice(array.length / 2, array.length)
 
-  # conquer
-  merge_sort(b, sorted_array)
-  merge_sort(c, sorted_array)
+    # conquer
+   binding.pry
+    merge(merge_sort(b), merge_sort(c))
+  end
+end
 
+def merge(b, c, sorted_array = [])
+ binding.pry
   i_b = 0
   i_c = 0
-  i_sa = sorted_array.length
+  i_sa = 0
   while i_b < b.length && i_c < c.length
     if b[i_b] < c[i_c]
       sorted_array[i_sa] = b[i_b]
@@ -26,6 +29,7 @@ def merge_sort(array, sorted_array = [])
       sorted_array[i_sa] = c[i_c]
       i_c += 1
     end
+    i_sa += 1
   end
 
   if i_b == b.length + 1
@@ -33,8 +37,8 @@ def merge_sort(array, sorted_array = [])
   else
     sorted_array << b[i_b..b.length]
   end
-
-  end
+  sorted_array.flatten
 end
 
-puts merge_sort([6, 5, 4, 3, 2, 1])
+
+puts merge_sort([5, 4, 3, 2])
