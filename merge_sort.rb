@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 def merge_sort(array)
   if array.length < 2
     array
@@ -11,13 +9,11 @@ def merge_sort(array)
     right = array.slice(array.length / 2, array.length)
 
     # conquer
-    #binding.pry
     merge(merge_sort(left), merge_sort(right))
   end
 end
 
 def merge(left, right, sorted_array = [])
-  #binding.pry
   i_left = 0
   i_right = 0
   i_sa = 0
@@ -40,4 +36,4 @@ def merge(left, right, sorted_array = [])
   sorted_array.flatten
 end
 
-puts merge_sort([8, 7, 6, 5, 1, 3, 2])
+puts merge_sort([5, 4, 3, 2, 1])
