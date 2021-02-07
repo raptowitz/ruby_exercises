@@ -7,38 +7,37 @@ def merge_sort(array)
     array
   else
     # divide
-    b = array.slice(0, array.length / 2)
-    c = array.slice(array.length / 2, array.length)
+    left = array.slice(0, array.length / 2)
+    right = array.slice(array.length / 2, array.length)
 
     # conquer
-   binding.pry
-    merge(merge_sort(b), merge_sort(c))
+    #binding.pry
+    merge(merge_sort(left), merge_sort(right))
   end
 end
 
-def merge(b, c, sorted_array = [])
- binding.pry
-  i_b = 0
-  i_c = 0
+def merge(left, right, sorted_array = [])
+  #binding.pry
+  i_left = 0
+  i_right = 0
   i_sa = 0
-  while i_b < b.length && i_c < c.length
-    if b[i_b] < c[i_c]
-      sorted_array[i_sa] = b[i_b]
-      i_b += 1
+  while i_left < left.length && i_right < right.length
+    if left[i_left] < right[i_right]
+      sorted_array[i_sa] = left[i_left]
+      i_left += 1
     else
-      sorted_array[i_sa] = c[i_c]
-      i_c += 1
+      sorted_array[i_sa] = right[i_right]
+      i_right += 1
     end
     i_sa += 1
   end
 
-  if i_b == b.length + 1
-    sorted_array << c[i_c..c.length]
+  if i_left == left.length
+    sorted_array.push(right[i_right..right.length])
   else
-    sorted_array << b[i_b..b.length]
+    sorted_array.push(left[i_left..left.length])
   end
   sorted_array.flatten
 end
 
-
-puts merge_sort([5, 4, 3, 2])
+puts merge_sort([8, 7, 6, 5, 1, 3, 2])
