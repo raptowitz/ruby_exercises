@@ -8,3 +8,4 @@ These exercises are from The Odin Project's Ruby curriculum.
 ## Computer Science
 * [fibonacci](https://www.theodinproject.com/courses/ruby-programming/lessons/recursion)
 * [merge sort](https://www.theodinproject.com/courses/ruby-programming/lessons/recursion)
+* [linked lists](https://www.theodinproject.com/courses/ruby-programming/lessons/linked-lists)
