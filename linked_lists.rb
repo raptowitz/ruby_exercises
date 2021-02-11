@@ -29,6 +29,13 @@ class LinkedList
       @head = new_node
     end
   end
+
+  def size(node = @head, count = 0)
+    return count if node.nil?
+
+    count += 1
+    size(node.next_node, count)
+  end
 end
 
 # Node class
@@ -43,6 +50,7 @@ end
 list = LinkedList.new
 list.append(5)
 list.append(4)
-#list.append(3)
+list.append(3)
 list.prepend(2)
+puts list.size
 p list
