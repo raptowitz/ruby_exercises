@@ -17,6 +17,18 @@ class LinkedList
       @tail = @tail.next_node
     end
   end
+
+  # adds a new node containing value to the start of the list
+  def prepend(value)
+    if @head.nil?
+      @head = Node.new(value)
+      @tail = @head
+    else
+      new_node = Node.new(value)
+      new_node.next_node = @head
+      @head = new_node
+    end
+  end
 end
 
 # Node class
@@ -31,6 +43,6 @@ end
 list = LinkedList.new
 list.append(5)
 list.append(4)
-list.append(3)
-list.append(2)
+#list.append(3)
+list.prepend(2)
 p list
