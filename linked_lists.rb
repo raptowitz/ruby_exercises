@@ -70,6 +70,14 @@ class LinkedList
     current_index += 1
     find(value, current_index, node.next_node)
   end
+
+  def to_s(node = @head, string = [])
+    return string << 'nil' if node.nil?
+
+    string << node.value
+    to_s(node.next_node, string)
+    string.join('->')
+  end
 end
 
 # Node class
@@ -85,5 +93,6 @@ list = LinkedList.new
 list.append(5)
 list.append(4)
 list.append(3)
-p list.find(3)
+list.append(2)
+p list.to_s
 p list
