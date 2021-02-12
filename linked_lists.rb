@@ -35,8 +35,7 @@ class LinkedList
   def size(node = @head, count = 0)
     return count if node.nil?
 
-    count += 1
-    size(node.next_node, count)
+    size(node.next_node, count + 1)
   end
 
   # returns the node at the given index
@@ -44,8 +43,7 @@ class LinkedList
     return 'Not a valid index' if index >= size || index.negative?
     return node if index == current_index
 
-    current_index += 1
-    at(index, current_index, node.next_node)
+    at(index, current_index + 1, node.next_node)
   end
 
   # removes the last element from the list
@@ -71,8 +69,7 @@ class LinkedList
     return nil if node.nil?
     return current_index if node.value == value
 
-    current_index += 1
-    find(value, current_index, node.next_node)
+    find(value, current_index + 1, node.next_node)
   end
 
   # represent your LinkedList objects as strings
@@ -96,8 +93,7 @@ class LinkedList
       node.next_node = new_node
       return
     end
-    current_index += 1
-    insert_at(value, index, current_index, node.next_node)
+    insert_at(value, index, current_index + 1, node.next_node)
   end
 
   def shift
@@ -114,8 +110,7 @@ class LinkedList
       node.next_node = node.next_node.next_node
       return
     end
-    current_index += 1
-    remove_at(index, current_index, node.next_node)
+    remove_at(index, current_index + 1, node.next_node)
   end
 end
 
