@@ -58,7 +58,7 @@ class LinkedList
     pop(node.next_node)
   end
 
-  # returns true if the passed in value is in the list and otherwise returns false
+  # returns true if the passed in value is in the list, otherwise returns false
   def contains?(value, node = @head)
     return false if node.nil?
     return true if node.value == value
@@ -99,6 +99,24 @@ class LinkedList
     current_index += 1
     insert_at(value, index, current_index, node.next_node)
   end
+
+  def shift
+    @head = @head.next_node
+  end
+
+  # removes the node at the given index
+  def remove_at(index, current_index = 0, node = @head)
+    return 'Not a valid index' if index >= size || index.negative?
+    return pop if index == size - 1
+    return shift if index.zero?
+
+    if current_index + 1 == index
+      node.next_node = node.next_node.next_node
+      return
+    end
+    current_index += 1
+    remove_at(index, current_index, node.next_node)
+  end
 end
 
 # Node class
@@ -115,5 +133,5 @@ list.append(5)
 list.append(4)
 list.append(3)
 list.append(2)
-puts list.insert_at(6,8)
+puts list.remove_at(2)
 puts list.to_s
