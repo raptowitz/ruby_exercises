@@ -49,12 +49,18 @@ class LinkedList
 
   def pop(node = @head)
     if node.next_node.next_node.nil?
-      @tail = node
       node.next_node = nil
+      @tail = node
       return
     end
-
     pop(node.next_node)
+  end
+
+  def contains?(value, node = @head)
+    return false if node.nil?
+    return true if node.value == value
+
+    contains?(value, node.next_node)
   end
 end
 
@@ -71,6 +77,5 @@ list = LinkedList.new
 list.append(5)
 list.append(4)
 list.append(3)
-list.append(2)
-list.pop
+p list.contains?(3)
 p list
