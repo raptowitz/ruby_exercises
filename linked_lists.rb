@@ -41,10 +41,20 @@ class LinkedList
 
   def at(index, current_index = 0, node = @head)
     return 'Not a valid index' if index >= size
-    return node.value if index == current_index
+    return node if index == current_index
 
     current_index += 1
     at(index, current_index, node.next_node)
+  end
+
+  def pop(node = @head)
+    if node.next_node.next_node.nil?
+      @tail = node
+      node.next_node = nil
+      return
+    end
+
+    pop(node.next_node)
   end
 end
 
@@ -61,5 +71,6 @@ list = LinkedList.new
 list.append(5)
 list.append(4)
 list.append(3)
-puts list.at(3)
-puts list.size
+list.append(2)
+list.pop
+p list
