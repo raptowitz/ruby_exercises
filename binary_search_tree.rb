@@ -41,8 +41,19 @@ class Tree
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
+
+  def insert(data, node = @root)
+    if node.left.nil? && data < node.data
+      node.left = Node.new(data)
+    elsif node.right.nil? && data > node.data
+      node.right = Node.new(data)
+    else
+      data > node.data ? insert(data, node.right) : insert(data, node.left)
+    end
+  end
 end
 
-p tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
-p tree.build_tree
+tree = Tree.new([2, 3, 4, 6, 7, 8, 9])
+tree.build_tree
+tree.insert(5)
 p tree.pretty_print
