@@ -43,6 +43,9 @@ class Tree
   end
 
   def insert(data, node = @root)
+    return @root = Node.new(data) if @root.nil?
+    return if node.data == data
+
     if node.left.nil? && data < node.data
       node.left = Node.new(data)
     elsif node.right.nil? && data > node.data
@@ -51,9 +54,22 @@ class Tree
       data > node.data ? insert(data, node.right) : insert(data, node.left)
     end
   end
+
+  def delete(data, node = @root)
+    return @root = Node.new(data) if @root.nil?
+
+    if node.left.left.nil? && node.left.right.nil? && node.left.data == data
+      node.left = nil
+    elsif node.right.right.nil? && node.right.left.nil? && node.right.data == data
+      node.right = nil
+    else
+      data > node.data ? delete(data, node.right) : delete(data, node.left)
+    end
+  end
+
 end
 
-tree = Tree.new([2, 3, 4, 6, 7, 8, 9])
+tree = Tree.new([2, 3, 4, 5, 6, 7, 8, 9])
 tree.build_tree
-tree.insert(5)
+tree.delete(9)
 p tree.pretty_print
