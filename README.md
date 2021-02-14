@@ -9,3 +9,4 @@ These exercises are from The Odin Project's Ruby curriculum.
 * [fibonacci](https://www.theodinproject.com/courses/ruby-programming/lessons/recursion)
 * [merge sort](https://www.theodinproject.com/courses/ruby-programming/lessons/recursion)
 * [linked lists](https://www.theodinproject.com/courses/ruby-programming/lessons/linked-lists)
+* [binary serach trees](https://www.theodinproject.com/courses/ruby-programming/lessons/binary-search-trees)
