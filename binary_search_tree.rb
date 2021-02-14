@@ -1,22 +1,48 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 # Node class
 class Node
   include Comparable
-  attr_accessor :value, :left, :right
+  attr_accessor :data, :left, :right
 
-  def initialize(value = nil)
-    @value = value
+  def initialize(data = nil)
+    @data = data
     @left = nil
     @right = nil
   end
 
   def <=>(other)
-    value <=> other.value
+    data <=> other.data
   end
 end
 
-four = Node.new(4)
-three = Node.new(3)
+# Tree class
+class Tree
+  def initialize(array)
+    @array = array.sort.uniq
+    @root = nil
+  end
 
-p [four, three].sort
+  def build_tree(array = @array, first = 0, last = @array.length - 1)
+    return nil if first > last
+
+    mid = (first + last) / 2
+    root = Node.new(array[mid])
+
+    root.left = build_tree(array, first, mid - 1)
+    root.right = build_tree(array, mid + 1, last)
+    @root = root
+  end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+  end
+end
+
+p tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+p tree.build_tree
+p tree.pretty_print
