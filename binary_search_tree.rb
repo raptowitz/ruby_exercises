@@ -55,21 +55,42 @@ class Tree
     end
   end
 
-  def delete(data, node = @root)
+  def delete(data, root = @root, node = @root, left = @root.left, right = @root.right)
     return @root = Node.new(data) if @root.nil?
 
-    if node.left.left.nil? && node.left.right.nil? && node.left.data == data
-      node.left = nil
-    elsif node.right.right.nil? && node.right.left.nil? && node.right.data == data
-      node.right = nil
-    else
-      data > node.data ? delete(data, node.right) : delete(data, node.left)
+    if data > node.data
+      delete(data, node, node.right, node.right.left, node.right.right)
+    elsif data < node.data
+      delete(data, node, node.left, node.left.left, node.left.right)
+
+    # Node to be deleted is leaf
+    elsif left.nil? && right.nil?
+      delete_leaf(data, root)
+
+    # Node to be deleted has only one child
+    elsif left.nil? || right.nil?
+      delete_one_child(data, root, left, right)
     end
   end
 
+  def delete_leaf(data, root)
+    data > root.data ? root.right = nil : root.left = nil
+  end
+
+  def delete_one_child(data, root, left, right)
+    if right.nil?
+      data < root.data ? root.left = left : root.right = left
+    elsif left.nil?
+      data < root.data ? root.left = right : root.right = right
+    end
+  end
 end
 
 tree = Tree.new([2, 3, 4, 5, 6, 7, 8, 9])
 tree.build_tree
+tree.delete(8)
+tree.delete(2)
+tree.delete(3)
 tree.delete(9)
+tree.delete(7)
 p tree.pretty_print
