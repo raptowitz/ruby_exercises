@@ -55,24 +55,19 @@ class Tree
     end
   end
 
-  def delete(data, root = @root, node = @root, left = @root.left, right = @root.right)
+  def delete(data, root = @root, node = @root)
     return @root = Node.new(data) if @root.nil?
 
-    find_node(data, node)
-    if left.nil? && right.nil?
-      delete_leaf(data, root)
-    elsif left.nil? || right.nil?
-      delete_one_child(data, root, left, right)
-    else
-      
-    end
-  end
-
-  def find_node(data, node)
     if data > node.data
-      delete(data, node, node.right, node.right.left, node.right.right)
+      delete(data, node, node.right)
     elsif data < node.data
-      delete(data, node, node.left, node.left.left, node.left.right)
+      delete(data, node, node.left)
+    elsif node.left.nil? && node.right.nil?
+      delete_leaf(data, root)
+    elsif node.left.nil? || node.right.nil?
+      delete_one_child(data, root, node)
+    else
+      delete_two_children(node)
     end
   end
 
@@ -80,20 +75,29 @@ class Tree
     data > root.data ? root.right = nil : root.left = nil
   end
 
-  def delete_one_child(data, root, left, right)
-    if right.nil?
-      data < root.data ? root.left = left : root.right = left
-    elsif left.nil?
-      data < root.data ? root.left = right : root.right = right
+  def delete_one_child(data, root, node)
+    if node.right.nil?
+      data < root.data ? root.left = node.left : root.right = node.left
+    elsif node.left.nil?
+      data < root.data ? root.left = node.right : root.right = node.right
     end
+  end
+
+  def delete_two_children(node)
+    current = node.right
+    while !current.left.nil?
+      current = current.left
+    end
+    delete(current.data)
+    node.data = current.data
   end
 end
 
-tree = Tree.new([2, 3, 4, 5, 6, 7, 8, 9])
+tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
 tree.delete(8)
-tree.delete(2)
-tree.delete(3)
+# tree.delete(2)
+# tree.delete(3)
 # tree.delete(9)
 # tree.delete(7)
-p tree.pretty_print
+tree.pretty_print
