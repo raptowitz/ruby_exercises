@@ -58,18 +58,21 @@ class Tree
   def delete(data, root = @root, node = @root, left = @root.left, right = @root.right)
     return @root = Node.new(data) if @root.nil?
 
+    find_node(data, node)
+    if left.nil? && right.nil?
+      delete_leaf(data, root)
+    elsif left.nil? || right.nil?
+      delete_one_child(data, root, left, right)
+    else
+      
+    end
+  end
+
+  def find_node(data, node)
     if data > node.data
       delete(data, node, node.right, node.right.left, node.right.right)
     elsif data < node.data
       delete(data, node, node.left, node.left.left, node.left.right)
-
-    # Node to be deleted is leaf
-    elsif left.nil? && right.nil?
-      delete_leaf(data, root)
-
-    # Node to be deleted has only one child
-    elsif left.nil? || right.nil?
-      delete_one_child(data, root, left, right)
     end
   end
 
@@ -91,6 +94,6 @@ tree.build_tree
 tree.delete(8)
 tree.delete(2)
 tree.delete(3)
-tree.delete(9)
-tree.delete(7)
+# tree.delete(9)
+# tree.delete(7)
 p tree.pretty_print
