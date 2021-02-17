@@ -91,13 +91,19 @@ class Tree
     delete(current.data)
     node.data = current.data
   end
+
+  def find(data, node = @root)
+    return 'No node in tree' if node.nil?
+    return node if node.data == data
+
+    data > node.data ? find(data, node.right) : find(data, node.left)
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-tree.delete(8)
-# tree.delete(2)
 # tree.delete(3)
 # tree.delete(9)
 # tree.delete(7)
+p tree.find(67)
 tree.pretty_print
