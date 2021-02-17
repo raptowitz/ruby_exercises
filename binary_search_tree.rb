@@ -121,12 +121,31 @@ class Tree
     level_order_recursive(queue, array)
   end
 
-  def inorder(root = @root, array = [])
-    return array if node.nil?
+  # root, left, right
+  def preorder(root = @root, array = [])
+    return array if root.nil?
 
     array.push(root.data)
     inorder(root.left, array)
     inorder(root.right, array)
+  end
+
+  # left, root, right
+  def inorder(root = @root, array = [])
+    return array if root.nil?
+
+    inorder(root.left, array)
+    array.push(root.data)
+    inorder(root.right, array)
+  end
+
+  # left, right, root
+  def postorder(root = @root, array = [])
+    return array if root.nil?
+
+    postorder(root.left, array)
+    postorder(root.right, array)
+    array.push(root.data)
   end
 end
 
@@ -135,5 +154,5 @@ tree.build_tree
 # tree.delete(3)
 # tree.delete(9)
 # tree.delete(7)
-p tree.inorder
+p tree.postorder
 tree.pretty_print
