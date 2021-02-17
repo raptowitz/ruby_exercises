@@ -98,6 +98,18 @@ class Tree
 
     data > node.data ? find(data, node.right) : find(data, node.left)
   end
+
+  def level_order
+    queue = [@root]
+    array = []
+    until queue[0].nil?
+      array.push(queue[0].data)
+      queue.push(queue[0].left) unless queue[0].left.nil?
+      queue.push(queue[0].right) unless queue[0].right.nil?
+      queue.shift
+    end
+    array
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
@@ -105,5 +117,5 @@ tree.build_tree
 # tree.delete(3)
 # tree.delete(9)
 # tree.delete(7)
-p tree.find(67)
+p tree.level_order
 tree.pretty_print
