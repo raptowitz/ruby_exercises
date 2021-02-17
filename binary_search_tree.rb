@@ -120,6 +120,14 @@ class Tree
     queue.shift
     level_order_recursive(queue, array)
   end
+
+  def inorder(root = @root, array = [])
+    return array if node.nil?
+
+    array.push(root.data)
+    inorder(root.left, array)
+    inorder(root.right, array)
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
@@ -127,5 +135,5 @@ tree.build_tree
 # tree.delete(3)
 # tree.delete(9)
 # tree.delete(7)
-p tree.level_order_recursive
+p tree.inorder
 tree.pretty_print
