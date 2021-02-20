@@ -147,12 +147,37 @@ class Tree
     postorder(root.right, array)
     array.push(root.data)
   end
+
+  def height(data, node = @root)
+    #binding.pry
+    # find the node
+    if data > node.data
+      height(data, node.right)
+    elsif data < node.data
+      height(data, node.left)
+    else
+    # find the longest path on the left side
+      # check if there is a left side & increment count by 1, make left root
+        # check if left node has any children
+    # find the longest path on the right side
+    # return the longest left or right + 1
+      p count(node.left)
+      p count(node.right)
+    end
+  end
+
+  def count(root, count = 0)
+    #binding.pry
+    return count if root.nil?
+
+    count += 1
+    count(root.left, count)
+    count(root.right, count)
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-# tree.delete(3)
-# tree.delete(9)
-# tree.delete(7)
-p tree.postorder
+p tree.level_order_iterative
+p tree.inorder
 tree.pretty_print
