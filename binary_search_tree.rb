@@ -149,35 +149,30 @@ class Tree
   end
 
   def height(data, node = @root)
-    #binding.pry
-    # find the node
     if data > node.data
       height(data, node.right)
     elsif data < node.data
       height(data, node.left)
     else
-    # find the longest path on the left side
-      # check if there is a left side & increment count by 1, make left root
-        # check if left node has any children
-    # find the longest path on the right side
-    # return the longest left or right + 1
-      p count(node.left)
-      p count(node.right)
+      find_height(node)
     end
   end
 
-  def count(root, count = 0)
-    #binding.pry
-    return count if root.nil?
+  def find_height(node)
+    return -1 if node.nil?
 
-    count += 1
-    count(root.left, count)
-    count(root.right, count)
+    left = find_height(node.left)
+    right = find_height(node.right)
+    max = left > right ? left : right
+    1 + max
   end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-p tree.level_order_iterative
-p tree.inorder
+tree.insert(25)
+tree.insert(13)
+tree.insert(400)
+tree.insert(500)
+p tree.height(324)
 tree.pretty_print
