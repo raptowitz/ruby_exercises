@@ -148,33 +148,46 @@ class Tree
     array.push(root.data)
   end
 
-  def height(data, node = @root)
-    if data > node.data
-      height(data, node.right)
-    elsif data < node.data
-      height(data, node.left)
+  def height(node, root = @root)
+    if node > root
+      height(node, root.right)
+    elsif node < root
+      height(node, root.left)
     else
-      find_height(node)
+      find_height(root)
     end
   end
 
-  def find_height(node)
-    return -1 if node.nil?
+  def find_height(root)
+    return -1 if root.nil?
 
-    left = find_height(node.left)
-    right = find_height(node.right)
+    left = find_height(root.left)
+    right = find_height(root.right)
     max = left > right ? left : right
     1 + max
   end
 
-  def depth(data, node = @root, depth = 0)
-    return depth if data == node.data
+  def depth(node, root = @root, depth = 0)
+    return depth if node == root
 
-    data > node.data ? depth(data, node.right, depth + 1) : depth(data, node.left, depth + 1)
+    node > root ? depth(node, root.right, depth + 1) : depth(node, root.left, depth + 1)
+  end
+
+  def balanced?(root = @root, balanced = [])
+    return if root.nil?
+
+    left = find_height(root.left)
+    right = find_height(root.right)
+    balanced.push((left - right).abs <= 1)
+
+    balanced?(root.left, balanced)
+    balanced?(root.right, balanced)
+    balanced.all? { |node| node == true }
   end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-p tree.depth(23)
+tree.insert(200)
+p tree.balanced?
 tree.pretty_print
