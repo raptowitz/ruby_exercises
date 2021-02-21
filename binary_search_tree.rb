@@ -166,13 +166,15 @@ class Tree
     max = left > right ? left : right
     1 + max
   end
+
+  def depth(data, node = @root, depth = 0)
+    return depth if data == node.data
+
+    data > node.data ? depth(data, node.right, depth + 1) : depth(data, node.left, depth + 1)
+  end
 end
 
 tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.build_tree
-tree.insert(25)
-tree.insert(13)
-tree.insert(400)
-tree.insert(500)
-p tree.height(324)
+p tree.depth(23)
 tree.pretty_print
