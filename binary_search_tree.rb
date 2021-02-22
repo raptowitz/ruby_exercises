@@ -184,10 +184,33 @@ class Tree
     balanced?(root.right, balanced)
     balanced.all? { |node| node == true }
   end
+
+  def rebalance
+    array = level_order_recursive
+    balanced_tree = Tree.new(array)
+    balanced_tree.build_tree
+    balanced_tree.pretty_print
+    balanced_tree
+  end
 end
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+# Driver Scipt
+tree = Tree.new(Array.new(15) { rand(1..100) })
 tree.build_tree
-tree.insert(200)
-p tree.balanced?
 tree.pretty_print
+puts "This tree is balanced: #{tree.balanced?}"
+puts "level order: #{tree.level_order_recursive}"
+puts "pre-order: #{tree.preorder}"
+puts "post-order: #{tree.postorder}"
+puts "in-order: #{tree.inorder}"
+tree.insert(100)
+tree.insert(200)
+tree.insert(300)
+tree.pretty_print
+puts "This tree is balanced: #{tree.balanced?}"
+balanced_tree = tree.rebalance
+puts "This tree is balanced: #{balanced_tree.balanced?}"
+puts "level order: #{balanced_tree.level_order_recursive}"
+puts "pre-order: #{balanced_tree.preorder}"
+puts "post-order: #{balanced_tree.postorder}"
+puts "in-order: #{balanced_tree.inorder}"
