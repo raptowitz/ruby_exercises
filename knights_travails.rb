@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 # Board class
 class Board
   attr_reader :spaces
@@ -27,23 +29,38 @@ end
 
 # Knight class
 class Knight
-  def knight_moves(start, finish)
+  def initialize(start, finish)
     @start = start
     @finish = finish
+  end
 
+  def knight_moves
     level = {
-      0 => start
+      0 => @start
     }
     parent = {
       0 => ""
     }
     i = 1
-    frontier = [start]
-    # while frontier #is not empty
-    #   next_level = [#all the things you can reach in i moves]
+    frontier = [@start]
+
+    until level.values.include?(@finish)
+      binding.pry
+      frontier.each_entry do |move|
+        queue = available_moves(move)
+        queue.each_entry do |next_move|
+          if level.values.none?(next_move)
+            level[i] = next_move
+            parent[i] = next_move
+          end
+        end
+        frontier = queue
+      end
+      i += 1
+    end
     #   for #every node in the frontier:
     #     for # u all of the nodes you can reach from those nodes
-    #       if #the node v you can reach from that node is not in the level dictionary
+    #       if #the node v you can reach from that node is not in the hash
     #         level[#node] = i
     #         parent[#node] = u 
     #         #next.apend(v)
@@ -52,12 +69,13 @@ class Knight
     #     i += 1
     #     end
     #   end
-    # end
+    #end
+    p queue
   end
 
-  def available_moves
-    x_knight = @start[0]
-    y_knight = @start[1]
+  def available_moves(current_space)
+    x_knight = current_space[0]
+    y_knight = current_space[1]
 
     all_spaces = Board.new.create_spaces
     all_spaces.reject do |space|
@@ -70,6 +88,5 @@ end
 
 new_board = Board.new
 new_board.print_board
-new_knight = Knight.new
-new_knight.knight_moves([3, 2], [4, 3])
-p new_knight.available_moves
+new_knight = Knight.new([4, 3], [2, 2])
+new_knight.knight_moves
