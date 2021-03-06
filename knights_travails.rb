@@ -36,41 +36,36 @@ class Knight
 
   def knight_moves
     level = {
-      0 => @start
+      @start => 0
     }
     parent = {
-      0 => ""
     }
     i = 1
     frontier = [@start]
-
-    until level.values.include?(@finish)
-      binding.pry
-      frontier.each_entry do |move|
-        queue = available_moves(move)
+    until level.keys.include?(@finish)
+      until frontier[0].nil?
+        queue = available_moves(frontier[0])
         queue.each_entry do |next_move|
-          if level.values.none?(next_move)
-            level[i] = next_move
-            parent[i] = next_move
+          if level.keys.none?(next_move)
+            level[next_move] = i
+            parent[next_move] = frontier[0]
           end
         end
-        frontier = queue
+        frontier.shift
       end
+      frontier = queue
       i += 1
     end
-    #   for #every node in the frontier:
-    #     for # u all of the nodes you can reach from those nodes
-    #       if #the node v you can reach from that node is not in the hash
-    #         level[#node] = i
-    #         parent[#node] = u 
-    #         #next.apend(v)
-    #       end
-    #     frontier = next_level
-    #     i += 1
-    #     end
-    #   end
-    #end
-    p queue
+    puts "You made it in #{shortest_path(parent).length - 1} moves! Here's your path:
+    #{shortest_path(parent)}"
+  end
+
+  def shortest_path(parent, node = @finish, shortest_path = [])
+    return shortest_path.push(@start).reverse if node == @start
+
+    shortest_path.push(node)
+    node = parent[node]
+    shortest_path(parent, node, shortest_path)
   end
 
   def available_moves(current_space)
@@ -86,7 +81,5 @@ class Knight
   end
 end
 
-new_board = Board.new
-new_board.print_board
-new_knight = Knight.new([4, 3], [2, 2])
+new_knight = Knight.new([3, 3], [4, 3])
 new_knight.knight_moves
