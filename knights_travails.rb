@@ -35,11 +35,8 @@ class Knight
   end
 
   def knight_moves
-    level = {
-      @start => 0
-    }
-    parent = {
-    }
+    level = { @start => 0 }
+    parent = {}
     i = 1
     frontier = [@start]
     until level.keys.include?(@finish)
@@ -56,8 +53,7 @@ class Knight
       frontier = queue
       i += 1
     end
-    puts "You made it in #{shortest_path(parent).length - 1} moves! Here's your path:
-    #{shortest_path(parent)}"
+    print_path(parent)
   end
 
   def shortest_path(parent, node = @finish, shortest_path = [])
@@ -66,6 +62,14 @@ class Knight
     shortest_path.push(node)
     node = parent[node]
     shortest_path(parent, node, shortest_path)
+  end
+
+  def print_path(parent)
+    path = shortest_path(parent)
+    puts "You made it in #{path.length - 1} moves! Here's your path:"
+    path.each do |move|
+      p move
+    end
   end
 
   def available_moves(current_space)
