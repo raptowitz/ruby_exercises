@@ -42,6 +42,8 @@ class Knight
     print_path(parent)
   end
 
+  private
+
   def shortest_path(parent, node = @finish, shortest_path = [])
     return shortest_path.push(@start).reverse if node == @start
 
@@ -71,5 +73,5 @@ class Knight
   end
 end
 
-new_knight = Knight.new([3, 3], [4, 3])
+new_knight = Knight.new([4, 5], [5, 8])
 new_knight.knight_moves
