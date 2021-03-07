@@ -11,3 +11,6 @@ These exercises are from The Odin Project's Ruby curriculum.
 * [linked lists](https://www.theodinproject.com/courses/ruby-programming/lessons/linked-lists)
 * [binary serach trees](https://www.theodinproject.com/courses/ruby-programming/lessons/binary-search-trees)
 * [knights travails](https://www.theodinproject.com/courses/ruby-programming/lessons/knights-travails)
+
+## Testing section
+* [caesar cipher](https://www.theodinproject.com/courses/ruby-programming/lessons/introduction-to-rspec)
